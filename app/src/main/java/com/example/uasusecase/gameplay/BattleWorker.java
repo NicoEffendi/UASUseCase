@@ -36,14 +36,7 @@ public class BattleWorker implements Runnable{
             e.printStackTrace();
         }
 
-        if (winner.equals(c1)) {
 
-            ImageView img = (ImageView)findViewById(R.id.player_one_win);
-            img.setVisibility(View.VISIBLE);
-        }else {
-            ImageView img = (ImageView)findViewById(R.id.player_one_win);
-            img.setVisibility(View.VISIBLE);
-        }
 
 
     }

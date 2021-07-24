@@ -85,8 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
                 BattleWorker bw = new BattleWorker(myActivity, c1, c2);
                 new Thread(bw).run();
-
-
+                Castle winner = bw.getWinner();
+                if (winner.equals(c1)) {
+                    ImageView img = (ImageView)findViewById(R.id.player_one_win);
+                    img.setVisibility(View.VISIBLE);
+                } else {
+                    ImageView img = (ImageView)findViewById(R.id.player_two_win);
+                    img.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
