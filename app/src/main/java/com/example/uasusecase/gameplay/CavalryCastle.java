@@ -2,21 +2,24 @@ package com.example.uasusecase.gameplay;
 
 public class CavalryCastle extends Castle {
 
-
     public CavalryCastle() {
         this.CastleType = Castle.CAVALRY;
+    }
+
+    @Override
+    public String getCastleBattleType() {
+        return Castle.CAVALRY;
     }
 
     @Override
     public double calculatePower() {
         /**
          * Calculate power based on Armies formation and number, including heroes
-         * Cavalry castle boost Cavalry Army by 40%
+         * Archer castle boost Archer Army by 40%
          */
 
         double power = 0;
-
-        for (Army arm: Armies) {
+        for (Army arm: this.ArmiesToBattle) {
             if (arm.ArmyType == Army.CAVALRY) {
                 power += arm.numbers + arm.numbers * Army.CAVALRY_BOOST;
             }else {
@@ -29,12 +32,31 @@ public class CavalryCastle extends Castle {
     }
 
     @Override
-    public Castle battleTo(Castle ct2) {
+    public int sendArmies(int armies) {
+        return armies;
+    }
+
+    @Override
+    public double calculateEnemyKilled(Castle ct2, int armies) {
 
         double myPower = this.calculatePower();
-        double enemyPower = ct2.calculatePower();
+        int armiesSend = this.sendArmies(armies);
+        if(ct2.getCastleBattleType() == Castle.INFANTRY){
+            double enemyKilled = armiesSend - (0.4 * myPower);
+            return enemyKilled;
+        } else {
+            double enemyKilled = armiesSend - (0.1 * myPower);
+            return enemyKilled;
+        }
+    }
 
-        if (myPower >= enemyPower)
+    @Override
+    public Castle battleTo(Castle ct2, int armies) {
+
+        double enemyRemaining = ct2.calculateEnemyKilled(ct2, armies);
+        double myRemainingArmy = this.calculateEnemyKilled(this, armies);
+
+        if (myRemainingArmy >= enemyRemaining)
             return this;
         else
             return ct2;

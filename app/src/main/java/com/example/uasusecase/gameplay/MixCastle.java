@@ -1,15 +1,14 @@
 package com.example.uasusecase.gameplay;
 
-public class InfantryCastle extends Castle {
+public class MixCastle extends Castle {
 
-
-    public InfantryCastle() {
-        this.CastleType = Castle.INFANTRY;
+    public MixCastle() {
+        this.CastleType = Castle.MIX;
     }
 
     @Override
     public String getCastleBattleType() {
-        return Castle.INFANTRY;
+        return Castle.MIX;
     }
 
     @Override
@@ -21,8 +20,8 @@ public class InfantryCastle extends Castle {
 
         double power = 0;
         for (Army arm: this.ArmiesToBattle) {
-            if (arm.ArmyType == Army.INFANTRY) {
-                power += arm.numbers + arm.numbers * Army.INFANTRY_BOOST;
+            if (arm.ArmyType == Army.MIX) {
+                power += arm.numbers + arm.numbers;
             }else {
                 power += arm.numbers;
             }
@@ -42,8 +41,8 @@ public class InfantryCastle extends Castle {
 
         double myPower = this.calculatePower();
         int armiesSend = this.sendArmies(armies);
-        if(ct2.getCastleBattleType() == Castle.CAVALRY){
-            double enemyKilled = armiesSend - (0.1 * myPower);
+        if(ct2.getCastleBattleType() == Castle.INFANTRY){
+            double enemyKilled = armiesSend - (0.4 * myPower);
             return enemyKilled;
         } else {
             double enemyKilled = armiesSend - (0.1 * myPower);

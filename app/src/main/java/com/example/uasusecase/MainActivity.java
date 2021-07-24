@@ -9,23 +9,22 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.uasusecase.gameplay.ArcherCastle;
 import com.example.uasusecase.gameplay.Army;
 import com.example.uasusecase.gameplay.BattleWorker;
 import com.example.uasusecase.gameplay.Castle;
 import com.example.uasusecase.gameplay.CavalryCastle;
 import com.example.uasusecase.gameplay.InfantryCastle;
+import com.example.uasusecase.gameplay.MixCastle;
 
 
 public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+
+    public void CavalryVsArcher(){
+
         Activity myActivity = this;
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
         CavalryCastle c1 = new CavalryCastle();
-        InfantryCastle c2 = new InfantryCastle();
+        ArcherCastle c2 = new ArcherCastle();
 
 
         /** init armies for each Castle c1 and c2
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("myTag", "This is my message");
 
                 BattleWorker bw = new BattleWorker(myActivity, c1, c2);
                 new Thread(bw).run();
@@ -55,6 +53,49 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public void InfantryVsMixedArmy(){
+
+        Activity myActivity = this;
+        InfantryCastle c1 = new InfantryCastle();
+        MixCastle c2 = new MixCastle();
+
+
+        /** init armies for each Castle c1 and c2
+         *
+         */
+
+        c1.setArmy(new Army[100000]);
+
+        c2.setArmy(new Army[100000]);
+
+
+        Castle fightingCastles[] = new Castle[2];
+        fightingCastles[0] = c2;
+        fightingCastles[1] = c1;
+
+        initCastleImageBattle(fightingCastles);
+
+        final Button btn = findViewById(R.id.btn_battle);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                BattleWorker bw = new BattleWorker(myActivity, c1, c2);
+                new Thread(bw).run();
+
+
+            }
+        });
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        CavalryVsArcher();
+
     }
 
 

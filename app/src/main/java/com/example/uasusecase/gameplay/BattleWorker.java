@@ -1,6 +1,8 @@
 package com.example.uasusecase.gameplay;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class BattleWorker implements Runnable{
@@ -21,13 +23,13 @@ public class BattleWorker implements Runnable{
     @Override
     public void run() {
 
-        winner = c1.battleTo(c2);
+        winner = c1.battleTo(c2, 100000);
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Castle winner = c1.battleTo(c2);
+        Castle winner = c1.battleTo(c2, 100000);
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
@@ -35,10 +37,12 @@ public class BattleWorker implements Runnable{
         }
 
         if (winner.equals(c1)) {
-            Toast.makeText(a.getApplicationContext(),"Winner is " + c1.CastleType,Toast. LENGTH_SHORT ).show();
-        }else {
-            Toast.makeText(a.getApplicationContext(),"Winner is " + c2.CastleType,Toast. LENGTH_SHORT ).show();
 
+            ImageView img = (ImageView)findViewById(R.id.player_one_win);
+            img.setVisibility(View.VISIBLE);
+        }else {
+            ImageView img = (ImageView)findViewById(R.id.player_one_win);
+            img.setVisibility(View.VISIBLE);
         }
 
 
